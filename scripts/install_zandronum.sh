@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Install Zandronum
+# Install Zandronum Server
 
 # Variables
 
@@ -48,8 +48,12 @@ install_zandronum()
 ## Install Zandronum on Debian-based systems
 install_zandronum_debian()
 {
-  apt update
-  apt install -y zandronum
+  apt-get update
+  apt-get install -y zandronum-server
+
+  # Update the linker to look for the included libraries
+  echo '/usr/games/zandronum' > /etc/ld.so.conf.d/zandronum.conf
+  ldconfig
 }
 
 ## Display usage information
