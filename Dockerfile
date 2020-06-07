@@ -8,6 +8,7 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 ENV HOME=/root \
       APP_DEPS="wget" \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
+      BUILD_DEPS="gnupg software-properties-common" \
       DEBIAN_FRONTEND=noninteractive \
       DOOMWADDIR='/wads' \
       FILES='' \
@@ -18,7 +19,7 @@ ENV HOME=/root \
 # Install packages
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y ${APP_DEPS}
+    apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
 
 # Set up Zandronum
 RUN mkdir -p /root/.config/zandronum
@@ -30,7 +31,8 @@ RUN /tmp/install_zandronum.sh
 COPY bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Clean up unnecessary packages
-RUN apt-get autoremove --purge -y && \
+RUN apt-get remove ${BUILD_DEPS} && \
+  apt-get autoremove --purge -y && \
   rm -rf /var/lib/apt/lists/*
   
 # Expose ports
