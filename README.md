@@ -38,15 +38,18 @@ docker run -it \
   --rm \
   -p 10666:10666 \
   -v /Path/To/WADs/:/wads \
-  -v /Path/To/Other/WADs:/tmp/other_wads \
-  --name=zandronum-server \
+  -v /Path/To/Other/WADs:/other_wads \
+  --name=zandronum-serverd \
   frozenfoxx/zandronum-server:latest \
-  /tmp/other_wads/savage.wad \
   -private \
-  +developer 1 
+  +developer 1 \
+  /other_wads/savage.wad
 ```
 
 A full list of options and how to enable them is provided on the [ZDoom Wiki](https://zdoom.org/wiki/Command_line_parameters).
 
 # Configuration
 
+## Environment Variables
+
+* **CONFIG**:  contents of a game configuration INI file for Zandronum, encoded in `base64`. If specified it will be loaded when starting the server.

@@ -6,9 +6,9 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 
 # Variables
 ENV HOME=/root \
-      APP_DEPS="wget" \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
-      BUILD_DEPS="gnupg software-properties-common" \
+      BUILD_DEPS="gnupg software-properties-common wget" \
+      CONFIG="" \
       DEBIAN_FRONTEND=noninteractive \
       DOOMWADDIR='/wads' \
       FILES='' \
@@ -21,11 +21,11 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
 
-# Set up Zandronum
+# Set up Zandronum Server
 RUN mkdir -p /root/.config/zandronum
 COPY config/zandronum.ini /root/.config/zandronum/
 COPY scripts/* /tmp/
-RUN /tmp/install_zandronum.sh
+RUN /tmp/install_zandronum_server.sh
 
 # Set up entrypoint
 COPY bin/entrypoint.sh /usr/local/bin/entrypoint.sh

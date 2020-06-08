@@ -3,7 +3,6 @@
 # Install Zandronum Server
 
 # Variables
-
 DISTRO=${DISTRO:-'ubuntu'}
 REPO_KEY=${REPO_KEY:-'drdteam.gpg'}
 REPO_URL=${REPO_URL:-'http://debian.drdteam.org'}
@@ -31,13 +30,13 @@ add_repo_debian()
   apt-add-repository "deb ${REPO_URL}/ stable multiverse"
 }
 
-## Install Zandronum
-install_zandronum()
+## Install Zandronum Server
+install_zandronum_server()
 {
   case "${DISTRO}" in
-    debian ) install_zandronum_debian
+    debian ) install_zandronum_server_debian
              ;;
-    ubuntu ) install_zandronum_debian
+    ubuntu ) install_zandronum_server_debian
              ;;
     * )      echo "This distro is unsupported at this time"
              exit 1
@@ -45,8 +44,8 @@ install_zandronum()
   esac
 }
 
-## Install Zandronum on Debian-based systems
-install_zandronum_debian()
+## Install Zandronum Server on Debian-based systems
+install_zandronum_server_debian()
 {
   apt-get update
   apt-get install -y zandronum-server
@@ -59,7 +58,7 @@ install_zandronum_debian()
 ## Display usage information
 usage()
 {
-  echo "Usage: [Environment Variables] install_zandronum.sh [options]"
+  echo "Usage: [Environment Variables] install_zandronum_server.sh [options]"
   echo "  Environment Variables:"
   echo "    DISTRO                distribution to install to (default: 'ubuntu')"
   echo "    REPO_KEY              repository keyfile (default: 'drdteam.gpg')"
@@ -82,4 +81,4 @@ while [[ "$1" != "" ]]; do
 done
 
 add_repo
-install_zandronum
+install_zandronum_server
