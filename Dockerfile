@@ -24,11 +24,8 @@ RUN apt-get update && \
 # Set up Zandronum Server
 RUN mkdir -p /root/.config/zandronum
 COPY config/zandronum.ini /root/.config/zandronum/
-COPY scripts/* /tmp/
-RUN /tmp/install_zandronum_server.sh
-
-# Set up entrypoint
-COPY bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY scripts/* /usr/local/bin/
+RUN /usr/local/bin/install_zandronum_server.sh
 
 # Clean up unnecessary packages
 RUN apt-get remove -y ${BUILD_DEPS} && \
