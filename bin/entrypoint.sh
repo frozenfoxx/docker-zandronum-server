@@ -2,7 +2,6 @@
 
 # Variables
 CONFIG=${CONFIG:-''}
-IWAD=${IWAD:-''}
 
 # Functions
 
