@@ -24,7 +24,7 @@ The following will run the latest Zandronum server with a default configuration.
 docker run -it \
   --rm \
   -p 10666:10666 \
-  -v /Path/To/WADs/:/wads \
+  -v /Path/To/WADs/:/wads:ro \
   --name=zandronum-server \
   frozenfoxx/zandronum-server:latest
 ```
@@ -37,8 +37,8 @@ The entrypoint will pass all additional options to the Zandronum server script. 
 docker run -it \
   --rm \
   -p 10666:10666 \
-  -v /Path/To/WADs/:/wads \
-  -v /Path/To/Other/WADs/:/other_wads \
+  -v /Path/To/WADs/:/wads:ro \
+  -v /Path/To/Other/WADs/:/other_wads:ro \
   --name=zandronum-serverd \
   frozenfoxx/zandronum-server:latest \
   -private \
