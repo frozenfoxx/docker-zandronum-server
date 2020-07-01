@@ -27,6 +27,9 @@ COPY config/zandronum.ini /root/.config/zandronum/
 COPY scripts/* /usr/local/bin/
 RUN /usr/local/bin/install_zandronum_server.sh
 
+# Add the zandronum user
+RUN useradd -ms /bin/bash zandronum
+
 # Clean up unnecessary packages
 RUN apt-get remove -y ${BUILD_DEPS} && \
   apt-get autoremove --purge -y && \
@@ -36,4 +39,5 @@ RUN apt-get remove -y ${BUILD_DEPS} && \
 EXPOSE 10666
 
 # Launch process
+USER zandronum
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
