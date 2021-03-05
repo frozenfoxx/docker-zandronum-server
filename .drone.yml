@@ -1,0 +1,18 @@
+kind: pipeline
+type: docker
+name: docker-zandronum-server
+steps:
+  - name: build
+    image: plugins/docker
+    environment:
+      TOKEN:
+        from_secret: ci_registry_token
+    settings:
+      username:
+        from_secret: ci_registry_user
+      password:
+        from_secret: ci_registry_password
+      repo:
+        from_secret: ci_registry_image
+      build_args_from_env:
+        - TOKEN
