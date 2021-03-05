@@ -5,6 +5,7 @@ steps:
   - name: build-and-publish
     image: plugins/docker
     settings:
+      auto_tag: true
       username:
         from_secret: ci_registry_user
       password:
