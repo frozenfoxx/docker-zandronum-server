@@ -1,5 +1,7 @@
 # docker-zandronum-server
 
+[![Build Status](https://cloud.drone.io/api/badges/frozenfoxx/docker-zandronum-server/status.svg?ref=refs/heads/main)](https://cloud.drone.io/frozenfoxx/docker-zandronum-server)
+
 A [Docker](https://www.docker.com/) container for running a [Zandronum](https://zandronum.com/) server.
 
 Docker Hub: [https://hub.docker.com/r/frozenfoxx/zandronum-server/](https://hub.docker.com/r/frozenfoxx/zandronum-server/)
