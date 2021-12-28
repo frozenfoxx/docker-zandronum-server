@@ -41,7 +41,7 @@ docker run -it \
   -p 10666:10666 \
   -v /Path/To/WADs/:/wads:ro \
   -v /Path/To/Other/WADs/:/other_wads:ro \
-  --name=zandronum-serverd \
+  --name=zandronum-server \
   frozenfoxx/zandronum-server:latest \
   -private \
   +developer 1 \
