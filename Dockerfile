@@ -22,7 +22,8 @@ RUN apt-get update && \
     apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
 
 # Set up Zandronum Server
-RUN mkdir -p /root/.config/zandronum
+RUN mkdir -p /root/.config/zandronum && \
+  mkdir -p ${DOOMWADDIR}
 COPY config/zandronum.ini /root/.config/zandronum/
 COPY scripts/* /usr/local/bin/
 RUN /usr/local/bin/install_zandronum_server.sh
