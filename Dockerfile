@@ -1,5 +1,5 @@
 # Base image
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Information
 LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
@@ -26,6 +26,7 @@ RUN mkdir -p /root/.config/zandronum && \
   mkdir -p ${DOOMWADDIR}
 COPY config/zandronum.ini /root/.config/zandronum/
 COPY scripts/* /usr/local/bin/
+COPY wads/* ${DOOMWADDIR}/
 RUN /usr/local/bin/install_zandronum_server.sh
 
 # Add the zandronum user
