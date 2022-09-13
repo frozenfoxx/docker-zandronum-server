@@ -16,6 +16,8 @@ cd docker-zandronum-server
 docker build -t frozenfoxx/zandronum-server:latest .
 ```
 
+If you wish to build WAD files into the container or simply wish to have defaults, include them in the `wads` directory prior to building.
+
 # How to Use this Image
 
 ## Quickstart
