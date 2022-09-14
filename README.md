@@ -52,6 +52,14 @@ docker run -it \
 
 A full list of options and how to enable them is provided on the [ZDoom Wiki](https://zdoom.org/wiki/Command_line_parameters).
 
+## Multiplay
+
+A [Multiplay](https://unity.com/products/multiplay) compatible version of this container is also available. For deployment to Multiplay, you will need to follow their Container [guildelines](https://docs.unity.com/multiplay/concepts/container-builds.html).
+
+* Copy your WAD files into `wads`.
+* Build the container (`docker build -t localhost/zandronum-server:multiplay -f Dockerfile.multiplay .`).
+* Authenticate, tag, and push to Multiplay in alignment with their [documentation](https://docs.unity.com/multiplay/guides/get-started.html#Upload2).
+
 # Configuration
 
 ## Environment Variables
