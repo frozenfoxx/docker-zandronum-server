@@ -26,7 +26,10 @@ add_repo()
 ## Add a Debian repository
 add_repo_debian()
 {
-  wget -qO- ${REPO_URL}/${REPO_KEY} | sudo tee /etc/apt/trusted.gpg.d/${REPO_KEY} 2>&1 >/dev/null
+  # In case of apt-key deprecation, this may become necessary
+  #wget -qO- ${REPO_URL}/${REPO_KEY} | sudo tee /etc/apt/trusted.gpg.d/${REPO_KEY} 2>&1 >/dev/null
+
+  wget -O - ${REPO_URL}/${REPO_KEY} | apt-key add -
   apt-add-repository "deb ${REPO_URL}/ stable multiverse"
 }
 
