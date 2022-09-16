@@ -19,14 +19,16 @@ ENV HOME=/root \
 # Install packages
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
+  apt-get install -y ${BUILD_DEPS}
 
-# Set up Zandronum Server
-RUN mkdir -p /root/.config/zandronum && \
+# Copy files
+RUN mkdir -p /usr/local/etc && \
   mkdir -p ${DOOMWADDIR}
-COPY config/zandronum.ini /root/.config/zandronum/
+COPY conf/* /usr/local/etc/
 COPY scripts/* /usr/local/bin/
 COPY wads/* ${DOOMWADDIR}/
+
+# Set up Zandronum Server
 RUN /usr/local/bin/install_zandronum_server.sh
 
 # Add the zandronum user
