@@ -6,20 +6,20 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 
 # Variables
 ENV HOME=/root \
-      APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
-      BUILD_DEPS="gnupg software-properties-common wget" \
-      CONFIG="" \
-      DEBIAN_FRONTEND=noninteractive \
-      DOOMWADDIR='/wads' \
-      FILES='' \
-      LANG=en_US.UTF-8 \
-      LANGUAGE=en_US.UTF-8 \
-      LC_ALL=C.UTF-8
+  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
+  BUILD_DEPS="gnupg software-properties-common wget" \
+  CONFIG="" \
+  DEBIAN_FRONTEND=noninteractive \
+  DOOMWADDIR='/wads' \
+  FILES='' \
+  LANG=en_US.UTF-8 \
+  LANGUAGE=en_US.UTF-8 \
+  LC_ALL=C.UTF-8
 
 # Install packages
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
+  apt-get upgrade -y && \
+  apt-get install -y ${APP_DEPS} ${BUILD_DEPS}
 
 # Set up Zandronum Server
 RUN mkdir -p /root/.config/zandronum && \
