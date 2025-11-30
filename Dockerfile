@@ -1,8 +1,8 @@
 # Base image
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Information
-LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
+LABEL maintainer="FrozenFOXX <frozenfoxx@cultoffoxx.net>"
 
 # Variables
 ENV HOME=/root \
