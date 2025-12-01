@@ -2,7 +2,7 @@
 FROM unitymultiplay/linux-base-image
 
 # Information
-LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
+LABEL maintainer="FrozenFOXX <frozenfoxx@cultoffoxx.net>"
 
 # Variables
 ENV HOME=/root \
