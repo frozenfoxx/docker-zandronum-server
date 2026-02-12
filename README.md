@@ -46,7 +46,7 @@ docker run -it \
   -v /Path/To/Configs/:/configs:ro \
   --name=zandronum-server \
   frozenfoxx/zandronum-server:latest \
-  +sv_hostname "My Doom Server" \
+  +sv_hostname "My Zandronum Server" \
   -port 10666 \
   -iwad /wads/DOOM2.WAD \
   -file /wads/brutal_doom.pk3 \
@@ -68,7 +68,7 @@ services:
     network_mode: host
     restart: unless-stopped
     command: >
-      +sv_hostname "My Doom Server"
+      +sv_hostname "My Zandronum Server"
       -port 10666
       -iwad /wads/DOOM2.WAD
       -file /wads/maps/mymod.pk3
@@ -89,7 +89,7 @@ services:
     network_mode: host
     restart: unless-stopped
     command: >
-      +sv_hostname "${ZANDRONUM_HOSTNAME:-My Doom Server}"
+      +sv_hostname "${ZANDRONUM_HOSTNAME:-My Zandronum Server}"
       -port ${ZANDRONUM_PORT:-10666}
       ${ZANDRONUM_COMMAND}
     volumes:
