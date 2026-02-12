@@ -30,38 +30,88 @@ docker run -it \
   -p 10666:10666 \
   -v /Path/To/WADs/:/wads:ro \
   --name=zandronum-server \
-  frozenfoxx/zandronum-server:latest
+  frozenfoxx/zandronum-server:latest \
+  -iwad /wads/DOOM2.WAD
 ```
 
 ## Adding Options
 
-The entrypoint will pass all additional options to the Zandronum server script. To mount an additional WAD file, host a private game, and set developer mode for instance:
+All arguments passed to the container are forwarded directly to `zandronum-server -host`. You can pass any combination of Zandronum command-line parameters and console variables:
 
 ```
 docker run -it \
   --rm \
   -p 10666:10666 \
   -v /Path/To/WADs/:/wads:ro \
-  -v /Path/To/Other/WADs/:/other_wads:ro \
+  -v /Path/To/Configs/:/configs:ro \
   --name=zandronum-server \
   frozenfoxx/zandronum-server:latest \
-  -private \
-  +developer 1 \
-  /other_wads/savage.wad
+  +sv_hostname "My Doom Server" \
+  -port 10666 \
+  -iwad /wads/DOOM2.WAD \
+  -file /wads/brutal_doom.pk3 \
+  +exec /configs/global.cfg \
+  +exec /configs/coop.cfg
 ```
 
 A full list of options and how to enable them is provided on the [ZDoom Wiki](https://zdoom.org/wiki/Command_line_parameters).
 
+## Docker Compose
+
+Below is an example `docker-compose.yml` for running a server:
+
+```yaml
+services:
+  zandronum:
+    image: frozenfoxx/zandronum-server:latest
+    container_name: zandronum
+    network_mode: host
+    restart: unless-stopped
+    command: >
+      +sv_hostname "My Doom Server"
+      -port 10666
+      -iwad /wads/DOOM2.WAD
+      -file /wads/maps/mymod.pk3
+      +exec /configs/global.cfg
+      +exec /configs/coop.cfg
+    volumes:
+      - /path/to/wads:/wads:ro
+      - /path/to/configs:/configs:ro
+```
+
+Complex or per-server arguments can be managed with environment variables and an override `.env` file:
+
+```yaml
+services:
+  zandronum:
+    image: frozenfoxx/zandronum-server:latest
+    container_name: zandronum
+    network_mode: host
+    restart: unless-stopped
+    command: >
+      +sv_hostname "${ZANDRONUM_HOSTNAME:-My Doom Server}"
+      -port ${ZANDRONUM_PORT:-10666}
+      ${ZANDRONUM_COMMAND}
+    volumes:
+      - /path/to/wads:/wads:ro
+      - /path/to/configs:/configs:ro
+```
+
+With a corresponding `.env` file:
+
+```
+ZANDRONUM_COMMAND=-iwad /wads/DOOM2.WAD
+  -file /wads/maps/Lexicon/lexicon.pk3
+  +exec /configs/global.cfg
+  +exec /configs/coop.cfg
+  +map VR
+ZANDRONUM_PORT=10666
+```
+
 ## Multiplay
 
-A [Multiplay](https://unity.com/products/multiplay) compatible version of this container is also available. For deployment to Multiplay, you will need to follow their Container [guildelines](https://docs.unity.com/multiplay/concepts/container-builds.html).
+A [Multiplay](https://unity.com/products/multiplay) compatible version of this container is also available. For deployment to Multiplay, you will need to follow their Container [guidelines](https://docs.unity.com/multiplay/concepts/container-builds.html).
 
 * Copy your WAD files into `wads`.
 * Build the container (`docker build -t localhost/zandronum-server:multiplay -f Dockerfile.multiplay .`).
 * Authenticate, tag, and push to Multiplay in alignment with their [documentation](https://docs.unity.com/multiplay/guides/get-started.html#Upload2).
-
-# Configuration
-
-## Environment Variables
-
-* **CONFIG**:  contents of a game configuration INI file for Zandronum, encoded in `base64`. If specified it will be loaded when starting the server.
