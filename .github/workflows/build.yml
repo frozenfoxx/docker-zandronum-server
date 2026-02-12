@@ -3,8 +3,8 @@
 name: build
 
 on:
-  schedule:
-    - cron: '0 17 * * 1'
+  # schedule:
+  #   - cron: '0 17 * * 1'
 
   push:
     branches:
@@ -39,6 +39,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zandronum-server:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/zandronum-server:buildcache

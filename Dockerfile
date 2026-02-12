@@ -7,11 +7,10 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@cultoffoxx.net>"
 # Variables
 ENV HOME=/root \
   APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
+  APP_DEPS="tini" \
   BUILD_DEPS="gnupg software-properties-common wget" \
-  CONFIG="" \
   DEBIAN_FRONTEND=noninteractive \
   DOOMWADDIR='/wads' \
-  FILES='' \
   LANG=en_US.UTF-8 \
   LANGUAGE=en_US.UTF-8 \
   LC_ALL=C.UTF-8
@@ -19,12 +18,10 @@ ENV HOME=/root \
 # Install packages
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y ${BUILD_DEPS}
+  apt-get install -y ${BUILD_DEPS} ${APP_DEPS}
 
 # Copy files
-RUN mkdir -p /usr/local/etc && \
-  mkdir -p ${DOOMWADDIR}
-COPY conf/* /usr/local/etc/
+RUN mkdir -p ${DOOMWADDIR}
 COPY scripts/* /usr/local/bin/
 COPY wads/* ${DOOMWADDIR}/
 
@@ -38,10 +35,11 @@ RUN useradd -ms /bin/bash zandronum
 RUN apt-get remove -y ${BUILD_DEPS} && \
   apt-get autoremove --purge -y && \
   rm -rf /var/lib/apt/lists/*
-  
+
 # Expose ports
 EXPOSE 10666
 
 # Launch process
 USER zandronum
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/usr/local/bin/entrypoint.sh"]
