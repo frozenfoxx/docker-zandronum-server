@@ -41,5 +41,4 @@ EXPOSE 10666
 
 # Launch process
 USER zandronum
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
